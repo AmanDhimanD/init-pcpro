@@ -6,8 +6,6 @@ import mainAbout from "./img/about/profile.png";
 import mainIcon1 from "./img/icon/d1.png";
 import mainIcon2 from "./img/icon/d2.png";
 import { ethers } from "ethers";
-import { async } from "q";
-import { log } from "console";
 
 /*
 Data
