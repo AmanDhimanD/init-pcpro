@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import "../pages/Main.css";
 import "./img/logo/logo3.png";
 import mainLogo from "./img/logo/logo3.png";
@@ -20,6 +20,7 @@ const data=() =>{
  */
 
 const Home = () => {
+  const [addr, setAddr] = useState(0);
 
   // A Web3Provider wraps a standard Web3 provider, which is
   // what MetaMask injects as window.ethereum into each page
@@ -42,6 +43,7 @@ const Home = () => {
     // For this, you need the account signer...
     const signer = provider.getSigner();
     console.log(await signer.getAddress());
+    setAddr(await signer.getAddress());
 
     // const reff = await contract.owner();
     // const reff = await contract.referralLink("0x1d95eAbc614834Bf8Fb64d171D5577432187C436");
@@ -177,9 +179,9 @@ const Home = () => {
                       <div className="dashboard-profile">
                         <img src={imageFunction.mainAbout} alt="" />
                         <div className="profile-content">
-                          <span className="pro-name">Stepen</span>
-                          <span className="pro-id">ID: 25424343</span>
-                          <span className="pro-number">support@gmail.com</span>
+                          {/* <span className="pro-name">Stepen</span> */}
+                          <span className="pro-id">ID: {addr}</span>
+                          {/* <span className="pro-number">support@gmail.com</span> */}
                         </div>
                       </div>
                     </div>
