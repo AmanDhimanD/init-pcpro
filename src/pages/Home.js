@@ -66,7 +66,7 @@ const Home = () => {
     setRoi(amount*0.005);
     setReferralReward(parseFloat(userDetails.referralReward)/(10**10)*0.005);
     setClaimed(userDetails.claimed.toNumber()/(10**10));
-    setReward(userDetails.reward.toNumber()/(10**10));
+    setReward(parseFloat(userDetails.referralReward)/(10**10)*0.005 + amount*0.005);
     setReferredCount(userDetails.referredCount.toNumber());
     // const reff = await contract.referralLink("0x1d95eAbc614834Bf8Fb64d171D5577432187C436");
 
@@ -74,6 +74,7 @@ const Home = () => {
     // const ref = signerContract.setTreasurer("0x106aa65493c0096d4a777dCA393A4687eF7E8839");
     // console.log("ref: ", ref);
   }
+  
 
   const sleep = ms => new Promise(
     resolve => setTimeout(resolve, ms)
