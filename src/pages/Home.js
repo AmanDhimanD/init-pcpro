@@ -223,7 +223,6 @@ const Home = () => {
                           <span className="pro-id">ID: {addr}</span>
                           <span className="pro-number">{window.location.origin.toString()}/{addr}</span>
                           <button className="top-btn coin-btn"
-                            // onClick={() => connectWallet()}
                           >
                             Copy Link
                           </button>
@@ -331,7 +330,7 @@ const Home = () => {
                       <div className="dashboard-amount d-flex flex-wrap align-items-center">
                         <div className="amount-content">
                           <span className="pro-name">PACKAGE</span>
-                          <span className="pro-money">$7000</span>
+                          <span className="pro-money">${deposite}</span>
                         </div>
                         <div className="invest-tumb">
                           <img src="img/icon/d3.png" alt="" />
