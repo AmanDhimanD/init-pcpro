@@ -60,7 +60,7 @@ const Home = () => {
     console.log(addr);
     setAddr(addr);
 
-    const userDetails = await contract.userDetails(addr);
+    const userDetails = await contract.userDetails(addr); 
     const amount = userDetails.deposited.toNumber()/(10**10);
     setDeposite(amount);
     setRoi(amount*0.005);
@@ -113,7 +113,48 @@ const Home = () => {
     await signerContract.addReferral(userAddress, 100, reff);
 
   }
+
+  async function topup() {
+    // MetaMask requires requesting permission to connect users accounts
+    await provider.send("eth_requestAccounts", []);
+
+    // The MetaMask plugin also allows signing transactions to
+    // send ether and pay to change state within the blockchain.
+    // For this, you need the account signer...
+    const signer = provider.getSigner();
+
+    // const reff = await contract.owner();
+    // console.log("lol: ", reff);
+    
+    // Each DAI has 18 decimal places
+    const tokenAddress = await contract.token();
+    // const tokens = ethers.utils.parseUnits("100", 10);
+    const tokens = 100*10**10;
+    console.log(tokens);
+    const tokenContract = new ethers.Contract(tokenAddress, tokenAbi, provider).connect(signer);
+    await tokenContract.approve(address, tokens);
+
+    await sleep(15000);
+
+    const userAddress = await signer.getAddress();
+    const signerContract = contract.connect(signer);
+    await signerContract.topup(userAddress, 100);
+  }
  
+  async function withdraw() {
+   // MetaMask requires requesting permission to connect users accounts
+   await provider.send("eth_requestAccounts", []);
+
+   // The MetaMask plugin also allows signing transactions to
+   // send ether and pay to change state within the blockchain.
+   // For this, you need the account signer...
+   const signer = provider.getSigner();
+
+   const userDetails = await contract.userDetails(addr); 
+   const amount = userDetails.reward.toNumber()/(10**10);
+   const signerContract = contract.connect(signer);
+   await signerContract.withdraw(amount); 
+  }
   
   return (
     <>
@@ -286,10 +327,17 @@ const Home = () => {
                       </div>
                       <div className="userboard-btn">
                         <button
-                        className="user-btn coin-btn"
-                        onClick={() => addRef()}
-                        >
-                          Make a deposite
+                          className="user-btn coin-btn"
+                          onClick={() => topup()}
+                          >
+                            REINVEST
+                        </button>
+
+                        <button
+                          className="user-btn coin-btn"
+                          onClick={() => addRef()}
+                          >
+                            Make a deposite
                         </button>
                         <a className="user-btn color-btn" href="#">
                           Withdraw funds
