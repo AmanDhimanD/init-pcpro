@@ -150,10 +150,8 @@ const Home = () => {
    // For this, you need the account signer...
    const signer = provider.getSigner();
 
-   const userDetails = await contract.userDetails(addr); 
-   const amount = userDetails.reward.toNumber()/(10**10);
    const signerContract = contract.connect(signer);
-   await signerContract.withdraw(amount); 
+   await signerContract.claim(); 
   }
   
   return (
@@ -221,7 +219,7 @@ const Home = () => {
                           <li>
                             <a href="signup.html">Signup</a>
                           </li>
-                        </ul>
+                        </ul>onClick={() => {navigator.clipboard.writeText(this.state.textToCopy)}}
                       </li>
                       <li className="menu-item-has-children">
                         <a href="#">Blog</a>
@@ -264,6 +262,10 @@ const Home = () => {
                           <span className="pro-id">ID: {addr}</span>
                           <span className="pro-number">{window.location.origin.toString()}/{addr}</span>
                           <button className="top-btn coin-btn"
+                          onClick={() => {
+                            const reff = window.location.origin.toString() + "/"+ addr.toString();
+                            navigator.clipboard.writeText(reff)
+                          }}
                           >
                             Copy Link
                           </button>
