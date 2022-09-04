@@ -60,11 +60,11 @@ const Home = () => {
     console.log(addr);
     setAddr(addr);
 
-    const userDetails = await contract.userDetails(addr);
+    const userDetails = await contract.userDetails("0xDC09B74bA5618D969979CF3495Ea3Dd14BC94312");
     const amount = userDetails.deposited.toNumber()/(10**10);
     setDeposite(amount);
-    setRoi(amount*0.05);
-    setReferralReward(parseFloat(userDetails.referralReward)/(10**10));
+    setRoi(amount*0.005);
+    setReferralReward(parseFloat(userDetails.referralReward)/(10**10)*0.005);
     setClaimed(userDetails.claimed.toNumber()/(10**10));
     setReward(userDetails.reward.toNumber()/(10**10));
     setReferredCount(userDetails.referredCount.toNumber());
