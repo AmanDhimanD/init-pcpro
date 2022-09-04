@@ -24,6 +24,7 @@ const Home = () => {
   const [referralReward, setReferralReward] = useState(0);
   const [claimed, setClaimed] = useState(0);
   const [reward, setReward] = useState(0);
+  const [referredCount, setReferredCount] = useState(0);
 
   // A Web3Provider wraps a standard Web3 provider, which is
   // what MetaMask injects as window.ethereum into each page
@@ -66,6 +67,7 @@ const Home = () => {
     setReferralReward(parseFloat(userDetails.referralReward)/(10**10));
     setClaimed(userDetails.claimed.toNumber()/(10**10));
     setReward(userDetails.reward.toNumber()/(10**10));
+    setReferredCount(userDetails.referredCount.toNumber());
     // const reff = await contract.referralLink("0x1d95eAbc614834Bf8Fb64d171D5577432187C436");
 
     // const signerContract = contract.connect(signer);
@@ -367,8 +369,8 @@ const Home = () => {
                     <div className="single-dash-head">
                       <div className="dashboard-amount d-flex flex-wrap align-items-center">
                         <div className="amount-content">
-                          <span className="pro-name">BALANCE CAP</span>
-                          <span className="pro-money">$4000</span>
+                          <span className="pro-name">TOTAL REFFERALS</span>
+                          <span className="pro-money">{referredCount}</span>
                         </div>
                         <div className="invest-tumb">
                           <img src="img/icon/d6.png" alt="" />
