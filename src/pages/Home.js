@@ -18,7 +18,12 @@ const data=() =>{
  */
 
 const Home = () => {
-  const [addr, setAddr] = useState(0);
+  const [addr, setAddr] = useState();
+  const [deposite, setDeposite] = useState(0);
+  const [roi, setRoi] = useState(0);
+  const [referralReward, setReferralReward] = useState(0);
+  const [claimed, setClaimed] = useState(0);
+  const [reward, setReward] = useState(0);
 
   // A Web3Provider wraps a standard Web3 provider, which is
   // what MetaMask injects as window.ethereum into each page
@@ -50,12 +55,18 @@ const Home = () => {
     // send ether and pay to change state within the blockchain.
     // For this, you need the account signer...
     const signer = provider.getSigner();
-    console.log(await signer.getAddress());
-    setAddr(await signer.getAddress());
+    const addr = await signer.getAddress();
+    console.log(addr);
+    setAddr(addr);
 
-    // const reff = await contract.owner();
+    const userDetails = await contract.userDetails(addr);
+    const amount = userDetails.deposited.toNumber()/(10**10);
+    setDeposite(amount);
+    setRoi(amount*0.05);
+    setReferralReward(parseFloat(userDetails.referralReward)/(10**10));
+    setClaimed(userDetails.claimed.toNumber()/(10**10));
+    setReward(userDetails.reward.toNumber()/(10**10));
     // const reff = await contract.referralLink("0x1d95eAbc614834Bf8Fb64d171D5577432187C436");
-    // console.log("lol: ", reff);
 
     // const signerContract = contract.connect(signer);
     // const ref = signerContract.setTreasurer("0x106aa65493c0096d4a777dCA393A4687eF7E8839");
@@ -88,18 +99,19 @@ const Home = () => {
 
     await sleep(15000);
 
-    const addr = "0xDC09B74bA5618D969979CF3495Ea3Dd14BC94312";
-    const reff = await contract.referralLink(addr);
+    // const addr = "0xDC09B74bA5618D969979CF3495Ea3Dd14BC94312";
+    let reffAddress = window.location.href.replace(window.location.origin, '');
+    reffAddress = reffAddress.replace("/", '');
+    if (reffAddress == '') {
+      reffAddress = "0xDC09B74bA5618D969979CF3495Ea3Dd14BC94312";
+    }
+    const reff = await contract.referralLink(reffAddress);
     const userAddress = await signer.getAddress();
     const signerContract = contract.connect(signer);
-    console.log(addr, reff);
     await signerContract.addReferral(userAddress, 100, reff);
-    // console.log(txReceipt);
-    // transactionMined(tx.hash);
 
   }
  
-  // referralLink();
   
   return (
     <>
@@ -207,7 +219,12 @@ const Home = () => {
                         <div className="profile-content">
                           {/* <span className="pro-name">Stepen</span> */}
                           <span className="pro-id">ID: {addr}</span>
-                          {/* <span className="pro-number">support@gmail.com</span> */}
+                          <span className="pro-number">{window.location.origin.toString()}/{addr}</span>
+                          <button className="top-btn coin-btn"
+                            // onClick={() => connectWallet()}
+                          >
+                            Copy Link
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -264,8 +281,7 @@ const Home = () => {
                     <div className="user-top">
                       <div className="user-balance">
                         <span>Your balance</span>
-                        {/*    <div className="main-bal">{data.price}</div> */}
-                        <div className="main-bal">$8020.20</div>
+                        <div className="main-bal">${reward}</div>
                       </div>
                       <div className="userboard-btn">
                         <button
@@ -287,7 +303,7 @@ const Home = () => {
                       <div className="dashboard-amount d-flex flex-wrap align-items-center">
                         <div className="amount-content">
                           <span className="pro-name">DAILY ROI</span>
-                          <span className="pro-money">$5000</span>
+                          <span className="pro-money">${roi}</span>
                         </div>
                         <div className="invest-tumb">
                           <img src={imageFunction.mainIcon1} alt="" />
@@ -300,7 +316,7 @@ const Home = () => {
                       <div className="dashboard-amount d-flex flex-wrap align-items-center">
                         <div className="amount-content">
                           <span className="pro-name">LEVEL ROI</span>
-                          <span className="pro-money">$3000</span>
+                          <span className="pro-money">${referralReward}</span>
                         </div>
                         <div className="invest-tumb">
                           <img src={imageFunction.mainIcon2} alt="" />
@@ -326,7 +342,7 @@ const Home = () => {
                       <div className="dashboard-amount d-flex flex-wrap align-items-center">
                         <div className="amount-content">
                           <span className="pro-name">WITHDRAW</span>
-                          <span className="pro-money">$1500</span>
+                          <span className="pro-money">${claimed}</span>
                         </div>
                         <div className="invest-tumb">
                           <img src="img/icon/d4.png" alt="" />
@@ -339,7 +355,7 @@ const Home = () => {
                       <div className="dashboard-amount d-flex flex-wrap align-items-center">
                         <div className="amount-content">
                           <span className="pro-name">TOTAL INVEST</span>
-                          <span className="pro-money">$8000</span>
+                          <span className="pro-money">${deposite}</span>
                         </div>
                         <div className="invest-tumb">
                           <img src="img/icon/d5.png" alt="" />
