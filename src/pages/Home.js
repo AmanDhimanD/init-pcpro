@@ -219,7 +219,7 @@ const Home = () => {
                           <li>
                             <a href="signup.html">Signup</a>
                           </li>
-                        </ul>onClick={() => {navigator.clipboard.writeText(this.state.textToCopy)}}
+                        </ul>
                       </li>
                       <li className="menu-item-has-children">
                         <a href="#">Blog</a>
@@ -341,9 +341,11 @@ const Home = () => {
                           >
                             Make a deposite
                         </button>
-                        <a className="user-btn color-btn" href="#">
+                        <button className="user-btn color-btn" href="#"
+                        onClick={() => withdraw()}
+                        >
                           Withdraw funds
-                        </a>
+                        </button>
                       </div>
                     </div>
                   </div>
