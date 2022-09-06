@@ -26,6 +26,8 @@ const Home = () => {
   const [reward, setReward] = useState(0);
   const [referredCount, setReferredCount] = useState(0);
 
+  const decimal = 18;
+
   // A Web3Provider wraps a standard Web3 provider, which is
   // what MetaMask injects as window.ethereum into each page
   const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -61,12 +63,12 @@ const Home = () => {
     setAddr(addr);
 
     const userDetails = await contract.userDetails(addr); 
-    const amount = userDetails.deposited.toNumber()/(10**10);
+    const amount = userDetails.deposited.toNumber()/(10**decimal);
     setDeposite(amount);
     setRoi(amount*0.005);
-    setReferralReward(parseFloat(userDetails.referralReward)/(10**10)*0.005);
-    setClaimed(userDetails.claimed.toNumber()/(10**10));
-    setReward(parseFloat(userDetails.reward)/(10**10));
+    setReferralReward(parseFloat(userDetails.referralReward)/(10**decimal)*0.005);
+    setClaimed(userDetails.claimed.toNumber()/(10**decimal));
+    setReward(parseFloat(userDetails.reward)/(10**decimal));
     // setReward(parseFloat(userDetails.referralReward)/(10**10)*0.005 + amount*0.005);
     setReferredCount(userDetails.referredCount.toNumber());
     // const reff = await contract.referralLink("0x1d95eAbc614834Bf8Fb64d171D5577432187C436");
@@ -96,7 +98,9 @@ const Home = () => {
     // Each DAI has 18 decimal places
     const tokenAddress = await contract.token();
     // const tokens = ethers.utils.parseUnits("100", 10);
-    const tokens = 100*10**10;
+    // Each DAI has 18 decimal places
+    const tokens = ethers.utils.parseUnits("100.0", 18);
+    // const tokens = 100*10**18;
     console.log(tokens);
     const tokenContract = new ethers.Contract(tokenAddress, tokenAbi, provider).connect(signer);
     await tokenContract.approve(address, tokens);
