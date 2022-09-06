@@ -26,8 +26,6 @@ const Home = () => {
   const [reward, setReward] = useState(0);
   const [referredCount, setReferredCount] = useState(0);
 
-  const decimal = 18;
-
   // A Web3Provider wraps a standard Web3 provider, which is
   // what MetaMask injects as window.ethereum into each page
   const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -62,16 +60,17 @@ const Home = () => {
     console.log(addr);
     setAddr(addr);
 
+    // const decimal = 10;
+
     const userDetails = await contract.userDetails(addr); 
-    const amount = userDetails.deposited.toNumber()/(10**decimal);
+    const amount = userDetails.deposited/(10**18);
     setDeposite(amount);
     setRoi(amount*0.005);
-    setReferralReward(parseFloat(userDetails.referralReward)/(10**decimal)*0.005);
-    setClaimed(userDetails.claimed.toNumber()/(10**decimal));
-    setReward(parseFloat(userDetails.reward)/(10**decimal));
-    // setReward(parseFloat(userDetails.referralReward)/(10**10)*0.005 + amount*0.005);
+    setReferralReward(parseFloat(userDetails.referralReward/(10**18))*0.005);
+    setClaimed(userDetails.claimed/(10**18));
+    // setReward((userDetails.reward/(10**18)));
+    setReward(userDetails.referralReward/(10**18)*0.005 + amount*0.005);
     setReferredCount(userDetails.referredCount.toNumber());
-    // const reff = await contract.referralLink("0x1d95eAbc614834Bf8Fb64d171D5577432187C436");
 
     // const signerContract = contract.connect(signer);
     // const ref = signerContract.setTreasurer("0x106aa65493c0096d4a777dCA393A4687eF7E8839");
