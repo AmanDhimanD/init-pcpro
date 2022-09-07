@@ -176,7 +176,7 @@ const Home = () => {
    const signer = provider.getSigner();
 
    const signerContract = contract.connect(signer);
-   await signerContract.claim(); 
+   await signerContract.withdraw(); 
   }
   
   return (
