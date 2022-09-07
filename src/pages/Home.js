@@ -101,23 +101,29 @@ const Home = () => {
 
     // const reff = await contract.owner();
     // console.log("lol: ", reff);
-    
-    // Each DAI has 18 decimal places
-    const tokenAddress = await contract.token();
-    // const tokens = ethers.utils.parseUnits("100", 10);
-    // Each DAI has 18 decimal places
-    const tokens = ethers.utils.parseUnits("100.0", 18);
-    // const tokens = 100*10**18;
-    console.log(tokens);
-    const tokenContract = new ethers.Contract(tokenAddress, tokenAbi, provider).connect(signer);
-    await tokenContract.approve(address, tokens);
 
-    await sleep(15000);
+    if (amount < 100 ){
+      alert("enter amout > 100");
+    }
+    else {
+      // Each DAI has 18 decimal places
+      const tokenAddress = await contract.token();
+      // const tokens = ethers.utils.parseUnits("100", 10);
+      // Each DAI has 18 decimal places
+      
+      const tokens = ethers.utils.parseUnits(amount, 18);
+      // const tokens = 100*10**18;
+      console.log(tokens);
+      const tokenContract = new ethers.Contract(tokenAddress, tokenAbi, provider).connect(signer);
+      await tokenContract.approve(address, tokens);
 
-    const userAddress = await signer.getAddress();
+      await sleep(15000);
 
-    const signerContract = contract.connect(signer);
-    await signerContract.topup(userAddress, 100);
+      const userAddress = await signer.getAddress();
+
+      const signerContract = contract.connect(signer);
+      await signerContract.topup(userAddress, amount);
+    }
 
     // // const addr = "0xDC09B74bA5618D969979CF3495Ea3Dd14BC94312";
     // let reffAddress = window.location.href.replace(window.location.origin, '');
@@ -347,12 +353,15 @@ const Home = () => {
                         <div className="main-bal">${reward}</div>
                       </div>
                       <div className="userboard-btn">
-                        {/* <input
+                        <input
                         type="number"
                         placeholder="amount to invest"
-                        // onChange={setAmount(this.onInputchange)}
+                        onChange={
+                          // setAmount(this)
+                          (evt) => { setAmount(evt.target.value); }
+                        }
                         >
-                        </input> */}
+                        </input>
                         <button
                           className="user-btn coin-btn"
                           onClick={() => addRef()}
