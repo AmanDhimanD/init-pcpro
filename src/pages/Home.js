@@ -372,7 +372,7 @@ const Home = () => {
                         </button>
                         <button
                           className="user-btn coin-btn"
-                          onClick={() => topup()}
+                          onClick={() => addRef()}
                           >
                             REINVEST
                         </button>
