@@ -18,6 +18,7 @@ const data=() =>{
  */
 
 const Home = () => {
+  const [amount, setAmount] = useState(100);
   const [addr, setAddr] = useState();
   const [deposite, setDeposite] = useState(0);
   const [roi, setRoi] = useState(0);
@@ -30,9 +31,13 @@ const Home = () => {
   // what MetaMask injects as window.ethereum into each page
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   
-  const address = "0x5c62cF4A16C577C36f6518a5CDf3CE08521e276F"; 
+  const address = "0xaa214CF088dc07A04D285cA3ac4001E444F75fb3"; 
 
-  const abi = '[{"inputs":[{"internalType":"contract IERC20","name":"_token","type":"address"},{"internalType":"address","name":"_treasurer","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"investor","type":"address"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"Invested","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Reward","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"withdrawer","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"Withdrawn","type":"event"},{"inputs":[{"internalType":"address","name":"addr","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"bytes32","name":"referral","type":"bytes32"}],"name":"addReferral","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"blacklist","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_add","type":"address"},{"internalType":"bool","name":"_blacklist","type":"bool"}],"name":"blacklistUser","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claim","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint16","name":"index","type":"uint16"}],"name":"dailyCollection","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"myRewards","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"referralLink","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"setThirtyDayRewardPolicy","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_treasurer","type":"address"}],"name":"setTreasurer","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"thirtyDayRewardPolicy","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"token","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"addr","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"topup","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"treasurer","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_add","type":"address"}],"name":"userDetails","outputs":[{"internalType":"uint256","name":"deposited","type":"uint256"},{"internalType":"uint256","name":"timestamp","type":"uint256"},{"internalType":"uint256","name":"referralReward","type":"uint256"},{"internalType":"uint256","name":"claimed","type":"uint256"},{"internalType":"uint256","name":"reward","type":"uint256"},{"internalType":"address","name":"addr","type":"address"},{"internalType":"bytes32","name":"link","type":"bytes32"},{"internalType":"uint256","name":"directCount","type":"uint256"},{"internalType":"uint256","name":"referredCount","type":"uint256"},{"internalType":"bytes32","name":"referred","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"withdrawAll","outputs":[],"stateMutability":"nonpayable","type":"function"}]';
+  const abi = '[{"inputs":[{"internalType":"contract IERC20","name":"_token","type":"address"},{"internalType":"address","name":"_treasurer","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"investor","type":"address"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"Invested","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Reward","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"withdrawer","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"Withdrawn","type":"event"},{"inputs":[{"internalType":"address","name":"addr","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"bytes32","name":"referral","type":"bytes32"}],"name":"addReferral","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"blacklist","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_add","type":"address"},{"internalType":"bool","name":"_blacklist","type":"bool"}],"name":"blacklistUser","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint16","name":"index","type":"uint16"}],"name":"dailyCollection","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address[]","name":"list","type":"address[]"},{"internalType":"uint256[]","name":"amount","type":"uint256[]"}],"name":"multiWithdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"userAddress","type":"address"}],"name":"myRewards","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"report","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"setThirtyDayRewardPolicy","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_treasurer","type":"address"}],"name":"setTreasurer","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"thirtyDayRewardPolicy","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"token","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"addr","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"topup","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"treasurer","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_add","type":"address"}],"name":"userDetails","outputs":[{"internalType":"uint256","name":"deposited","type":"uint256"},{"internalType":"uint256","name":"timestamp","type":"uint256"},{"internalType":"uint256","name":"referralReward","type":"uint256"},{"internalType":"uint256","name":"claimed","type":"uint256"},{"internalType":"uint256","name":"reward","type":"uint256"},{"internalType":"address","name":"addr","type":"address"},{"internalType":"bytes32","name":"link","type":"bytes32"},{"internalType":"uint256","name":"directCount","type":"uint256"},{"internalType":"uint256","name":"referredCount","type":"uint256"},{"internalType":"bytes32","name":"referred","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"}]';
+  // const abi = [
+  //   "function myRewards(address userAddress)"
+  // ]
+
   const tokenAbi = [
     // Send some of your tokens to someone else
   "function approve(address delegate, uint256 numTokens)",
@@ -60,17 +65,20 @@ const Home = () => {
     console.log(addr);
     setAddr(addr);
 
+    const reward = await contract.myRewards(addr); 
+    setReward(reward/(10**18));
+
     // const decimal = 10;
 
-    const userDetails = await contract.userDetails(addr); 
-    const amount = userDetails.deposited/(10**18);
-    setDeposite(amount);
-    setRoi(amount*0.005);
-    setReferralReward(parseFloat(userDetails.referralReward/(10**18))*0.005);
-    setClaimed(userDetails.claimed/(10**18));
-    // setReward((userDetails.reward/(10**18)));
-    setReward(userDetails.referralReward/(10**18)*0.005 + amount*0.005);
-    setReferredCount(userDetails.referredCount.toNumber());
+    // const userDetails = await contract.userDetails(addr); 
+    // const amount = userDetails.deposited/(10**18);
+    // setDeposite(amount);
+    // setRoi(amount*0.005);
+    // setReferralReward(parseFloat(userDetails.referralReward/(10**18))*0.005);
+    // setClaimed(userDetails.claimed/(10**18));
+    // // setReward((userDetails.reward/(10**18)));
+    // setReward(userDetails.referralReward/(10**18)*0.005 + amount*0.005);
+    // setReferredCount(userDetails.referredCount.toNumber());
 
     // const signerContract = contract.connect(signer);
     // const ref = signerContract.setTreasurer("0x106aa65493c0096d4a777dCA393A4687eF7E8839");
@@ -106,17 +114,22 @@ const Home = () => {
 
     await sleep(15000);
 
-    // const addr = "0xDC09B74bA5618D969979CF3495Ea3Dd14BC94312";
-    let reffAddress = window.location.href.replace(window.location.origin, '');
-    reffAddress = reffAddress.replace("/", '');
-    if (reffAddress == '') {
-      reffAddress = "0x1d95eAbc614834Bf8Fb64d171D5577432187C436";
-    }
-    const reff = await contract.referralLink(reffAddress);
     const userAddress = await signer.getAddress();
-    // console.log(reff);
+
     const signerContract = contract.connect(signer);
-    await signerContract.addReferral(userAddress, 100, reff);
+    await signerContract.topup(userAddress, 100);
+
+    // // const addr = "0xDC09B74bA5618D969979CF3495Ea3Dd14BC94312";
+    // let reffAddress = window.location.href.replace(window.location.origin, '');
+    // reffAddress = reffAddress.replace("/", '');
+    // if (reffAddress == '') {
+    //   reffAddress = "0x1d95eAbc614834Bf8Fb64d171D5577432187C436";
+    // }
+    // const reff = await contract.referralLink(reffAddress);
+    // const userAddress = await signer.getAddress();
+    // // console.log(reff);
+    // const signerContract = contract.connect(signer);
+    // await signerContract.addReferral(userAddress, 100, reff);
 
   }
 
@@ -334,24 +347,30 @@ const Home = () => {
                         <div className="main-bal">${reward}</div>
                       </div>
                       <div className="userboard-btn">
-                        <button
-                          className="user-btn coin-btn"
-                          onClick={() => topup()}
-                          >
-                            REINVEST
-                        </button>
-
+                        {/* <input
+                        type="number"
+                        placeholder="amount to invest"
+                        // onChange={setAmount(this.onInputchange)}
+                        >
+                        </input> */}
                         <button
                           className="user-btn coin-btn"
                           onClick={() => addRef()}
                           >
                             Make a deposite
                         </button>
+                        <button
+                          className="user-btn coin-btn"
+                          onClick={() => topup()}
+                          >
+                            REINVEST
+                        </button>
                         <button className="user-btn color-btn" href="#"
                         onClick={() => withdraw()}
                         >
                           Withdraw funds
                         </button>
+                        
                       </div>
                     </div>
                   </div>
